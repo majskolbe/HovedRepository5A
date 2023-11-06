@@ -1,5 +1,17 @@
 use context essentials2021
 include image
+include tables
+
+
+#--------------Lister til tabell--------------#
+
+
+var sirkeltabell = [list: ]
+var pinnetabell = [list: ]
+var trekktabell = [list: ]
+
+var i = 1
+
 
 #--------------Spillfelt--------------"
 
@@ -57,6 +69,7 @@ fun melding():
     print("1 er den første pinnen, 2 er den midterste og 3 en den siste.")
     print("Et eksempel, steg(4, 3), plasserer minste sirkel i høyre pinne.")
     print("Skriv start() for å starte spillet, og restart() for å starte på nytt.")  
+    "Om du vil se en tabell med alle dine trekk skriv tabell()."
   end
 end
 
@@ -83,17 +96,24 @@ fun restart():
     posisjon3 := 1
     posisjon4 := 1
     
+    sirkeltabell := [list: ]
+    pinnetabell := [list: ]
+    trekktabell := [list: ]
+
+    i := 1
+    
+    
     underlay(sirkel1(1),
       underlay(sirkel2(1),
         underlay(sirkel3(1),
-          (sirkel4(1)))))    
+          (sirkel4(1)))))  
   end
 end
 
 
 #---------------Spillet--------------#
 
-# Plasserer hver sirkel der den skal ved å bruke variabler og posisjon parameter.
+# Plasserer hver sirkel der den skal ved å bruke variabler og posisjon som parameter.
 
 
 fun sirkel1(posisjon):
@@ -186,6 +206,13 @@ fun steg(sirkel, stav):
       else:
         block:
           posisjon1 := stav
+          pinnetall = [list: stav]
+          sirkeltall = [list: sirkel]
+          sirkeltabell := sirkeltabell.append(sirkeltall)
+          pinnetabell := pinnetabell.append(pinnetall)
+          trekkliste = [list: i]
+          trekktabell := trekktabell.append(trekkliste)
+          i := i + 1
           tegnalt()
         end
       end
@@ -197,6 +224,13 @@ fun steg(sirkel, stav):
       else:
         block:
           posisjon2 := stav
+          pinnetall = [list: stav]
+          sirkeltall = [list: sirkel]
+          sirkeltabell := sirkeltabell.append(sirkeltall)
+          pinnetabell := pinnetabell.append(pinnetall)
+          trekkliste = [list: i]
+          trekktabell := trekktabell.append(trekkliste)
+          i := i + 1
           tegnalt()
         end
       end
@@ -208,20 +242,48 @@ fun steg(sirkel, stav):
       else:
         block:
           posisjon3 := stav
+          pinnetall = [list: stav]
+          sirkeltall = [list: sirkel]
+          sirkeltabell := sirkeltabell.append(sirkeltall)
+          pinnetabell := pinnetabell.append(pinnetall)
+          trekkliste = [list: i]
+          trekktabell := trekktabell.append(trekkliste)
+          i := i + 1
           tegnalt()
         end
       end
     end
   else if sirkel == 4:
-      block:
-        posisjon4 := stav
-        tegnalt()
-      end
+    block:
+      posisjon4 := stav
+      pinnetall = [list: stav]
+      sirkeltall = [list: sirkel]
+      sirkeltabell := sirkeltabell.append(sirkeltall)
+      pinnetabell := pinnetabell.append(pinnetall)
+      trekkliste = [list: i]
+      trekktabell := trekktabell.append(trekkliste)
+      i := i + 1
+      tegnalt()
+    end
   else:
     "ugyldig input"
   end
 end
 
+
+#---------------Funksjon for å lage tabell--------------#
+
+
+fun tabell():
+  t = [table-from-columns:
+    {"trekk"; trekktabell},
+    {"sirkel"; sirkeltabell},
+    {"pinne"; pinnetabell}
+  ]
+  t
+end
+
 #---------------Skriver ut første funksjonene når du trykker på run--------------#
+
 
 melding()
